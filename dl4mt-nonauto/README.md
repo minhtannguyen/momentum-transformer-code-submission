@@ -19,11 +19,11 @@ Dependencies
 
 Downloading Datasets & Pre-trained Models
 ------------------
-The original translation corpora can be downloaded from ([IWLST'16 En-De](https://wit3.fbk.eu/). For the preprocessed corpora and pre-trained models, see below.
+The original translation corpora can be downloaded from ([IWLST'16 En-De](https://wit3.fbk.eu/). For the preprocessed corpora, see below.
 
 | | Dataset | Model |
 | -------------      | --- | -------------  |
-| IWSLT'16 En-De     | [Data](https://drive.google.com/file/d/1m7dZqEXHWPYcre6xxsFwFLrb9CRCZGmn/view?usp=sharing) | [Models](https://drive.google.com/open?id=1N8tfU5ttnov2jWk3-PHVMJClQA0pKXoN) |
+| IWSLT'16 En-De     | [Data](https://drive.google.com/file/d/1m7dZqEXHWPYcre6xxsFwFLrb9CRCZGmn/view?usp=sharing) |
 
 Before you run the code
 ------------------
