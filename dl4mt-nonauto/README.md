@@ -29,23 +29,31 @@ Before you run the code
 ------------------
 Set correct path to data in `data_path()` function located in [`data.py`](https://github.com/jasonleeinf/non-auto-decoding/blob/96f7765399133c79ad4d23768dd530ee3eb07990/data.py#L44):
 
-Loading & Decoding from Pre-trained Models
+Training New Models
 ------------------
-1. For `vocab_size`, use `40000` for IWLST'16 En-De.
-2. For `params`, use `small` for for IWLST'16 En-De.
+Run following commands to reproduce results in Table 3 in our paper.
 
-#### Non-autoregressive
-```bash
-$ python run.py --dataset <dataset> --vocab_size <vocab_size> --ffw_block highway --params <params> --lr_schedule anneal --fast --valid_repeat_dec 20 --use_argmax --next_dec_input both --mode test --remove_repeats --debug --trg_len_option predict --use_predicted_trg_len --load_from <checkpoint>
+```
+CUDA_VISIBLE_DEVICES=0,1 python run.py --dataset 'iwslt-ende' --data_root {data_dir} --vocab_size 40000 --ffw_block highway --params 'small' --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --layerwise_denoising_weight --load_dataset --use_distillation --attn_type 'full' --maximum_steps 750000 --main_path './softmax' --seed 0 --num_gpus 2 --gpu 0
+CUDA_VISIBLE_DEVICES=0,1 python run.py --dataset 'iwslt-ende' --data_root {data_dir} --vocab_size 40000 --ffw_block highway --params 'small' --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --layerwise_denoising_weight --load_dataset --use_distillation --attn_type 'linear' --maximum_steps 750000 --main_path './linear' --seed 0 --num_gpus 2 --gpu 0
+CUDA_VISIBLE_DEVICES=0,1 python run.py --dataset 'iwslt-ende' --data_root {data_dir} --vocab_size 40000 --ffw_block highway --params 'small' --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --layerwise_denoising_weight --load_dataset --use_distillation --attn_type 'momentum' --mu 0.6 --stepsize 0.6 --maximum_steps 750000 --main_path './momentum' --seed 0 --num_gpus 2 --gpu 0 
+CUDA_VISIBLE_DEVICES=0,1 python run.py --dataset 'iwslt-ende' --data_root {data_dir} --vocab_size 40000 --ffw_block highway --params 'small' --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --layerwise_denoising_weight --load_dataset --use_distillation --attn_type 'momentum' --mu 0.6 --stepsize 0.6 --res_type 'momentum' --adaptive_type 'nc' --res_mu 0.3 --res_stepsize 0.9 --res_delta 0.0001 --maximum_steps 750000 --main_path './momentum_momentum_connection' --seed 0 --num_gpus 2 --gpu 0
+CUDA_VISIBLE_DEVICES=0,1 python run.py --dataset 'iwslt-ende' --data_root {data_dir} --vocab_size 40000 --ffw_block highway --params 'small' --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --layerwise_denoising_weight --load_dataset --use_distillation --attn_type 'momentum' --mu 0.6 --stepsize 0.6 --res_type 'adaptive' --adaptive_type 'nc' --res_stepsize 0.9 --res_delta 0.0001 --maximum_steps 750000 --main_path './adaptivemomentum' --seed 0 --num_gpus 2 --gpu 0
+```
+
+Loading & Decoding from Pre-trained Models and Test Set
+------------------
+```
+CUDA_VISIBLE_DEVICES=0 python run.py --dataset 'iwslt-ende' --vocab_size 40000 --ffw_block highway --params 'small' --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --layerwise_denoising_weight --mode test --test_which 'test' --remove_repeats --debug --load_dataset --use_distillation --trg_len_option predict --use_predicted_trg_len --attn_type 'full' --model_path {model_dir} --load_from {model_name} --gpu 0
+
+CUDA_VISIBLE_DEVICES=0 python run.py --dataset 'iwslt-ende' --vocab_size 40000 --ffw_block highway --params 'small' --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --layerwise_denoising_weight --mode test --test_which 'test' --remove_repeats --debug --load_dataset --use_distillation --trg_len_option predict --use_predicted_trg_len --attn_type 'linear' --model_path {model_dir} --load_from {model_name} --gpu 0
+
+CUDA_VISIBLE_DEVICES=0 python run.py --dataset 'iwslt-ende' --vocab_size 40000 --ffw_block highway --params 'small' --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --layerwise_denoising_weight --mode test --test_which 'test' --remove_repeats --debug --load_dataset --use_distillation --trg_len_option predict --use_predicted_trg_len --attn_type 'momentum' --mu 0.6 --stepsize 0.6 --model_path {model_dir} --load_from {model_name} --gpu 0
+
+CUDA_VISIBLE_DEVICES=0 python run.py --dataset 'iwslt-ende' --vocab_size 40000 --ffw_block highway --params 'small' --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --layerwise_denoising_weight --mode test --test_which 'test' --remove_repeats --debug --load_dataset --use_distillation --trg_len_option predict --use_predicted_trg_len --attn_type 'momentum' --mu 0.6 --stepsize 0.6 --res_type 'momentum' --adaptive_type 'nc' --res_mu 0.3 --res_stepsize 0.9 --res_delta 0.0001 --model_path {model_dir} --load_from {model_name} --gpu 0
+
+CUDA_VISIBLE_DEVICES=0 python run.py --dataset 'iwslt-ende' --vocab_size 40000 --ffw_block highway --params 'small' --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --layerwise_denoising_weight --mode test --test_which 'test' --remove_repeats --debug --load_dataset --use_distillation --trg_len_option predict --use_predicted_trg_len --attn_type 'momentum' --mu 0.6 --stepsize 0.6 --res_type 'adaptive' --adaptive_type 'nc' --res_stepsize 0.9 --res_delta 0.0001 --model_path {model_dir} --load_from {model_name} --gpu 0
+
 ```
 
 For adaptive decoding, add the flag `--adaptive_decoding jaccard` to the above.
-
-Training New Models
-------------------
-
-#### Non-autoregressive
-```bash
-$ python run.py --dataset <dataset> --vocab_size <vocab_size> --ffw_block highway --params <params> --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --denoising_prob --layerwise_denoising_weight --use_distillation
-```
-
