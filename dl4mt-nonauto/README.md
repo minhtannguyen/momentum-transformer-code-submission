@@ -21,8 +21,8 @@ Downloading Datasets & Pre-trained Models
 ------------------
 The original translation corpora can be downloaded from ([IWLST'16 En-De](https://wit3.fbk.eu/). For the preprocessed corpora, see below.
 
-| | Dataset | Model |
-| -------------      | --- | -------------  |
+| | Dataset | 
+| -------------      | --- |
 | IWSLT'16 En-De     | [Data](https://drive.google.com/file/d/1m7dZqEXHWPYcre6xxsFwFLrb9CRCZGmn/view?usp=sharing) |
 
 Before you run the code
