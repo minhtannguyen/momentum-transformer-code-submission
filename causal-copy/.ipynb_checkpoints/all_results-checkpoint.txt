@@ -1,0 +1,28 @@
+/tanData/momentum_transformer/full_solfmax
+best_loss 0.000081
+
+best_acc 1.000000
+
+total_time 19.286442 minutes
+
+/tanData/momentum_transformer/linear_causal
+best_loss 0.000561
+
+best_acc 0.999886
+
+total_time 25.602304 minutes
+
+/tanData/momentum_transformer/reformer
+best_loss 0.007924
+
+best_acc 0.997746
+
+total_time 45.142818 minutes
+
+/tanData/momentum_transformer/linear_causal
+best_loss 0.001346
+
+best_acc 0.999756
+
+total_time 12.806887 minutes
+
