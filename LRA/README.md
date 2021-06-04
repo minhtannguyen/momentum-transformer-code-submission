@@ -18,49 +18,44 @@ To run the LRA tasks, one would need
 pytorch==1.7.1, transformers==3.3.1, performer-pytorch
 ```
 
-Run following commands to reproduce results in Table 1 in our paper.
+Run following commands to reproduce results in Table 5 in our paper.
 
 Listops
 ```
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "softmax" --task listops --use_wandb --project_name 'fmmformer' --job_name listops-softmax --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "linear" --task listops --use_wandb --project_name 'fmmformer' --job_name listops-linear --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "sparselowrank" --task listops --diag_size 5 --sparse_ratio 6.5 --kernels 'elu' --use_wandb --project_name 'fmmformer' --job_name listops-fmmformer-band-5 --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "sparselowrank" --task listops --diag_size 5 --sparse_ratio 11.5 --kernels 'elu' --use_wandb --project_name 'fmmformer' --job_name listops-fmmformer-1-kernel-band-5 --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "sparselowrank" --task listops --diag_size 5 --sparse_ratio 13.5 --kernels 'elu' 'elu_flip' --use_wandb --project_name 'fmmformer' --job_name listops-fmmformer-2-kernel-band-5 --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks.py --model "softmax" --task listops --use_wandb --project_name 'momentum-transformer' --job_name listops-softmax --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks.py --model "linear" --task listops --use_wandb --project_name 'momentum-transformer' --job_name listops-linear --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks.py --model "momentum" --task listops --mu 0.1 --stepsize 0.6 --use_wandb --project_name 'momentum-transformer' --job_name listops-momentum --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks_adaptive.py --model "momentum" --task listops --mu 0.1 --stepsize 0.6 --res_stepsize 0.4 --res_delta 0.0001 --use_wandb --project_name 'momentum-transformer' --job_name listops-adaptive-momentum --seed 0 
 ```
 
 Text
 ```
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "softmax" --task text --use_wandb --project_name 'fmmformer' --job_name text-softmax --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "linear" --task text --use_wandb --project_name 'fmmformer' --job_name text-linear --seed 0 
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "sparselowrank" --task text --diag_size 5 --sparse_ratio 6.5 --kernels 'elu' --use_wandb --project_name 'fmmformer' --job_name text-fmmformer-band-5 --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "sparselowrank" --task text --diag_size 5 --sparse_ratio 4.5 --kernels 'elu' --use_wandb --project_name 'fmmformer' --job_name text-fmmformer-1-kernel-band-5 --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "sparselowrank" --task text --diag_size 5 --sparse_ratio 4.5 --kernels 'elu' 'elu_flip' --use_wandb --project_name 'fmmformer' --job_name text-fmmformer-2-kernel-band-5 --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks.py --model "softmax" --task text --use_wandb --project_name 'momentum-transformer' --job_name text-softmax --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks.py --model "linear" --task text --use_wandb --project_name 'momentum-transformer' --job_name text-linear --seed 0 
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks.py --model "momentum" --task text --mu 0.6 --stepsize 2.0 --use_wandb --project_name 'momentum-transformer' --job_name text-momentum --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks_adaptive.py --model "momentum" --task text --mu 0.6 --stepsize 2.0 --res_stepsize 0.001 --res_delta 0.0001 --use_wandb --project_name 'momentum-transformer' --job_name text-adaptive-momentum --seed 0
 ```
 
 Retrieval
 ```
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "softmax" --task retrieval --use_wandb --project_name 'fmmformer' --job_name retrieval-softmax --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "linear" --task retrieval --use_wandb --project_name 'fmmformer' --job_name retrieval-linear --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "sparselowrank" --task retrieval --diag_size 5 --sparse_ratio 6.5 --kernels 'elu' --use_wandb --project_name 'fmmformer' --job_name retrieval-fmmformer-band-5 --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "sparselowrank" --task retrieval --diag_size 5 --sparse_ratio 18.5 --kernels 'elu' --use_wandb --project_name 'fmmformer' --job_name retrieval-fmmformer-1-kernel-band-5 --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "sparselowrank" --task retrieval --diag_size 5 --sparse_ratio 19.5 --kernels 'elu' 'elu_flip' --use_wandb --project_name 'fmmformer' --job_name retrieval-fmmformer-2-kernel-band-5 --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks.py --model "softmax" --task retrieval --use_wandb --project_name 'momentum-transformer' --job_name retrieval-softmax --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks.py --model "linear" --task retrieval --use_wandb --project_name 'momentum-transformer' --job_name retrieval-linear --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks.py --model "momentum" --task retrieval --mu 0.6 --stepsize 1.0 --use_wandb --project_name 'momentum-transformer' --job_name retrieval-momentum --seed 0 
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks_adaptive.py --model "momentum" --task retrieval --mu 0.6 --stepsize 1.0 --res_stepsize 0.5 --res_delta 0.0001 --use_wandb --project_name 'momentum-transformer' --job_name retrieval-adaptive-momentum --seed 0
 ```
 
 Image
 ```
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "softmax" --task image --use_wandb --project_name 'fmmformer' --job_name image-softmax --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "linear" --task image --use_wandb --project_name 'fmmformer' --job_name image-linear --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "sparselowrank" --task image --diag_size 5 --sparse_ratio 6.5 --kernels 'elu' --use_wandb --project_name 'fmmformer' --job_name image-fmmformer-band-5 --seed 0 
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "sparselowrank" --task image --diag_size 5 --sparse_ratio 4.5 --kernels 'elu' --use_wandb --project_name 'fmmformer' --job_name image-fmmformer-1-kernel-band-5 --seed 0 
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "sparselowrank" --task image --diag_size 5 --sparse_ratio 17.5 --kernels 'elu' 'elu_flip' --use_wandb --project_name 'fmmformer' --job_name image-fmmformer-2-kernel-band-5 --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks.py --model "softmax" --task image --use_wandb --project_name 'momentum-transformer' --job_name image-softmax --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks.py --model "linear" --task image --use_wandb --project_name 'momentum-transformer' --job_name image-linear --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks.py --model "momentum" --task image --mu 0.9 --stepsize 0.9 --use_wandb --project_name 'momentum-transformer' --job_name image-momentum --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks_adaptive.py --model "momentum" --task image --mu 0.9 --stepsize 0.9 --res_stepsize 0.001 --res_delta 0.0001 --use_wandb --project_name 'momentum-transformer' --job_name image-adaptive-momentum --seed 0
 ```
 
 Pathfinder
 ```
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "softmax" --task pathfinder32-curv_contour_length_14 --use_wandb --project_name 'fmmformer' --job_name pathfinder-softmax --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "linear" --task pathfinder32-curv_contour_length_14 --use_wandb --project_name 'fmmformer' --job_name pathfinder-linear --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "sparselowrank" --task pathfinder32-curv_contour_length_14 --diag_size 5 --sparse_ratio 6.5 --kernels 'elu' --use_wandb --project_name 'fmmformer' --job_name pathfinder-fmmformer-band-5 --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "sparselowrank" --task pathfinder32-curv_contour_length_14 --diag_size 5 --sparse_ratio 2.5 --kernels 'elu' --use_wandb --project_name 'fmmformer' --job_name pathfinder-fmmformer-1-kernel-band-5 --seed 0
-CUDA_VISIBLE_DEVICES=0,1 python3 run_tasks.py --model "sparselowrank" --task pathfinder32-curv_contour_length_14 --diag_size 5 --sparse_ratio 15.5 --kernels 'elu' 'elu_flip' --use_wandb --project_name 'fmmformer' --job_name pathfinder-fmmformer-2-kernel-band-5 --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks.py --model "softmax" --task pathfinder32-curv_contour_length_14 --use_wandb --project_name 'momentum-transformer' --job_name pathfinder-softmax --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks.py --model "linear" --task pathfinder32-curv_contour_length_14 --use_wandb --project_name 'momentum-transformer' --job_name pathfinder-linear --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks.py --model "momentum" --task pathfinder32-curv_contour_length_14 --mu 0.3 --stepsize 0.1 --use_wandb --project_name 'momentum-transformer' --job_name pathfinder-momentum --seed 0
+CUDA_VISIBLE_DEVICES=0 python3 run_tasks_adaptive.py --model "momentum" --task pathfinder32-curv_contour_length_14 --mu 0.3 --stepsize 0.1 --res_stepsize 0.8 --res_delta 0.0001 --use_wandb --project_name 'momentum-transformer' --job_name pathfinder-adaptive --seed 0
 ```
