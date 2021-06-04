@@ -45,13 +45,9 @@ Loading & Decoding from Pre-trained Models and Test Set
 ------------------
 ```
 CUDA_VISIBLE_DEVICES=0 python run.py --dataset 'iwslt-ende' --vocab_size 40000 --ffw_block highway --params 'small' --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --layerwise_denoising_weight --mode test --test_which 'test' --remove_repeats --debug --load_dataset --use_distillation --trg_len_option predict --use_predicted_trg_len --attn_type 'full' --model_path {model_dir} --load_from {model_name} --gpu 0
-
 CUDA_VISIBLE_DEVICES=0 python run.py --dataset 'iwslt-ende' --vocab_size 40000 --ffw_block highway --params 'small' --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --layerwise_denoising_weight --mode test --test_which 'test' --remove_repeats --debug --load_dataset --use_distillation --trg_len_option predict --use_predicted_trg_len --attn_type 'linear' --model_path {model_dir} --load_from {model_name} --gpu 0
-
 CUDA_VISIBLE_DEVICES=0 python run.py --dataset 'iwslt-ende' --vocab_size 40000 --ffw_block highway --params 'small' --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --layerwise_denoising_weight --mode test --test_which 'test' --remove_repeats --debug --load_dataset --use_distillation --trg_len_option predict --use_predicted_trg_len --attn_type 'momentum' --mu 0.6 --stepsize 0.6 --model_path {model_dir} --load_from {model_name} --gpu 0
-
 CUDA_VISIBLE_DEVICES=0 python run.py --dataset 'iwslt-ende' --vocab_size 40000 --ffw_block highway --params 'small' --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --layerwise_denoising_weight --mode test --test_which 'test' --remove_repeats --debug --load_dataset --use_distillation --trg_len_option predict --use_predicted_trg_len --attn_type 'momentum' --mu 0.6 --stepsize 0.6 --res_type 'momentum' --adaptive_type 'nc' --res_mu 0.3 --res_stepsize 0.9 --res_delta 0.0001 --model_path {model_dir} --load_from {model_name} --gpu 0
-
 CUDA_VISIBLE_DEVICES=0 python run.py --dataset 'iwslt-ende' --vocab_size 40000 --ffw_block highway --params 'small' --lr_schedule anneal --fast --valid_repeat_dec 8 --use_argmax --next_dec_input both --layerwise_denoising_weight --mode test --test_which 'test' --remove_repeats --debug --load_dataset --use_distillation --trg_len_option predict --use_predicted_trg_len --attn_type 'momentum' --mu 0.6 --stepsize 0.6 --res_type 'adaptive' --adaptive_type 'nc' --res_stepsize 0.9 --res_delta 0.0001 --model_path {model_dir} --load_from {model_name} --gpu 0
 
 ```
