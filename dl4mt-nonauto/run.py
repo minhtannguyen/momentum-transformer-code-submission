@@ -205,8 +205,8 @@ parser.add_argument(
 parser.add_argument(
         "--adaptive_type",
         type=str,
-        choices=["wang", "fr", "pr", "hs", "dy"],
-        default="wang",
+        choices=["nc", "fr", "pr", "hs", "dy"],
+        default="nc",
         help="Adaptive momentum type to be used for momentum residual connections"
     )
 parser.add_argument('--res_type', type=str, default=None)

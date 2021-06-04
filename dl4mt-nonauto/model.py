@@ -403,7 +403,7 @@ class ResidualMomentumBlock(nn.Module):
     
 class ResidualAdaptiveBlock(nn.Module):
 
-    def __init__(self, layer, d_model, d_hidden, drop_ratio, pos=0, res_stepsize=1.0, res_delta=0.0001, adaptive_type="wang"):
+    def __init__(self, layer, d_model, d_hidden, drop_ratio, pos=0, res_stepsize=1.0, res_delta=0.0001, adaptive_type="nc"):
         super().__init__()
         self.layer = layer
         self.dropout = nn.Dropout(drop_ratio)
@@ -436,7 +436,6 @@ class ResidualAdaptiveBlock(nn.Module):
             else:
                 res_mu = (torch.norm(gradvaly, dim=2, keepdim=True)**2)/torch.sum(v * (gradvaly - gradval), dim=2, keepdim=True)
         else:
-            #adaptive momentum developed in wang et. al. 
             if torch.all(v == torch.zeros_like(x[self.pos])):
                 res_mu = (1.0 - torch.sqrt(torch.norm(gradvaly - gradval, dim=2, keepdim=True)/torch.norm(gradval, dim=2, keepdim=True)))**2
             else:
