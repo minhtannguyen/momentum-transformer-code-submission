@@ -1,18 +1,4 @@
-## This is the latest version of the code that was used for our EMNLP 2018 paper
-
-## This version includes
-* PyTorch 0.4
-* MultiGPU training of model
-* Joint training of both non-autoregressive model and length prediction module at the same time
-* WMT'14 datasets and pretrained non-autoregressive models
-
-==================================
-
-Deterministic Non-Autoregressive Neural Sequence Modeling by Iterative Refinement
-==================================
-PyTorch implementation of the models described in the paper [Deterministic Non-Autoregressive Neural Sequence Modeling by Iterative Refinement](https://arxiv.org/abs/1802.06901 "Deterministic Non-Autoregressive Neural Sequence Modeling by Iterative Refinement").
-
-We present code for training and decoding both autoregressive and non-autoregressive models, as well as preprocessed datasets and pretrained models.
+## This is the code to reproduce machine translation experiments in our paper.
 
 Dependencies
 ------------------
