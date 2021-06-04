@@ -62,7 +62,6 @@ python prediction.py --dataset mnist --attention_type full --d_query 32 --n_head
 python prediction.py --dataset mnist --attention_type causal-linear --d_query 32 --n_heads 8 --n_layers 8 --mixtures 10 --index 0-10 --offset 1 --recurrent --force_cpu --save_image ./mnist.{}.{}.png {model_dir}/{linear_model_name}.pth.tar
 python prediction_momentum.py --dataset mnist --attention_type causal-momentum --d_query 32 --n_heads 8 --n_layers 8 --mixtures 10 --mu 0.6 --stepsize 0.9 --index 0-10 --offset 1 --recurrent --force_cpu --save_image ./mnist_mom.{}.{}.png {model_dir}/{momentum_model_name}.pth.tar
 python prediction_resadaptive.py --dataset mnist --attention_type causal-momentum --d_query 32 --n_heads 8 --n_layers 8 --mixtures 10 --mu 0.6 --stepsize 0.9 --res_stepsize 0.99 --delta 0.0001 --adaptive_type "nc" --is_resw False --index 0-10 --offset 1 --recurrent --force_cpu --save_image ./mnist_mom.{}.{}.png {model_dir}/{adaptive_model_name}.pth.tar
-python prediction_resadaptive.py --dataset mnist --attention_type causal-momentum --d_query 32 --n_heads 8 --n_layers 8 --mixtures 10 --mu 0.6 --stepsize 0.9 --res_stepsize 0.99 --delta 0.0001 --adaptive_type "nc" --is_resw False --index 0-10 --offset 1 --recurrent --force_cpu --save_image ./mnist_mom.{}.{}.png {model_dir}/{adaptive_model_name}.pth.tar
 ```
 
 The following arguments affect the generation process
