@@ -1,9 +1,3 @@
-#
-# Copyright (c) 2020 Idiap Research Institute, http://www.idiap.ch/
-# Written by Angelos Katharopoulos <angelos.katharopoulos@idiap.ch>
-#
-
-
 class Event(object):
     """The Event is the base class for all events that are dispatched from any
     transformer module.

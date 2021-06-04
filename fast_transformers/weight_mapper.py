@@ -1,9 +1,3 @@
-#
-# Copyright (c) 2020 Idiap Research Institute, http://www.idiap.ch/
-# Written by Angelos Katharopoulos <angelos.katharopoulos@idiap.ch>,
-# Apoorv Vyas <avyas@idiap.ch>
-#
-
 """The weight mapper module provides a utility to load transformer model
 weights from other implementations to a fast_transformers model.
 

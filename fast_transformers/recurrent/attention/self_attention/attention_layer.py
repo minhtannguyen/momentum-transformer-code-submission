@@ -1,9 +1,3 @@
-#
-# Copyright (c) 2020 Idiap Research Institute, http://www.idiap.ch/
-# Written by Angelos Katharopoulos <angelos.katharopoulos@idiap.ch>,
-# Apoorv Vyas <avyas@idiap.ch>
-#
-
 """Similar to the corresponding module in fast_transformers.attention, this
 module performs all the query, key, value projections and output projections
 leaving the implementation of the attention to the inner attention module."""

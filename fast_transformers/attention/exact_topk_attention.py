@@ -1,9 +1,3 @@
-#
-# Copyright (c) 2020 Idiap Research Institute, http://www.idiap.ch/
-# Written by Angelos Katharopoulos <angelos.katharopoulos@idiap.ch>,
-# Apoorv Vyas <avyas@idiap.ch>
-#
-
 """Implement the oracle top-k attention. The top-k keys are exact ones.
 MultiHeadAttention module. Note that this module is to be used in conjuction
 with the AttentionLayer in order to work."""

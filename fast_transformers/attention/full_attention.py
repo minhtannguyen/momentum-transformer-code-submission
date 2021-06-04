@@ -1,9 +1,3 @@
-#
-# Copyright (c) 2020 Idiap Research Institute, http://www.idiap.ch/
-# Written by Angelos Katharopoulos <angelos.katharopoulos@idiap.ch>,
-# Apoorv Vyas <avyas@idiap.ch>
-#
-
 """Implement the full attention similar to the one implemented by PyTorch's
 MultiHeadAttention module. Note that this module is to be used in conjuction
 with the `fast_transformers.attention.attention_layer.AttentionLayer` in order

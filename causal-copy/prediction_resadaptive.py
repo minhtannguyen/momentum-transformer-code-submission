@@ -1,9 +1,3 @@
-#
-# Copyright (c) 2020 Idiap Research Institute, http://www.idiap.ch/
-# Written by Angelos Katharopoulos <angelos.katharopoulos@idiap.ch>,
-# Apoorv Vyas <avyas@idiap.ch>
-#
-
 import argparse
 import math
 import sys
@@ -84,7 +78,7 @@ class SequencePredictor(torch.nn.Module):
                  d_query=32, dropout=0.1, softmax_temp=None,
                  attention_dropout=0.1,
                  bits=32, rounds=4,
-                 chunk_size=32, masked=True, mu=0.0, stepsize=1.0, res_stepsize=1.0, res_delta=0.0001, adaptive_type="wang", is_resw=False):
+                 chunk_size=32, masked=True, mu=0.0, stepsize=1.0, res_stepsize=1.0, res_delta=0.0001, adaptive_type="nc", is_resw=False):
         super(SequencePredictor, self).__init__()
 
         self.pos_embedding = PositionalEncoding(

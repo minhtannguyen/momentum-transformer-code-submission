@@ -1,9 +1,3 @@
-#
-# Copyright (c) 2020 Idiap Research Institute, http://www.idiap.ch/
-# Written by Angelos Katharopoulos <angelos.katharopoulos@idiap.ch>
-#
-
-
 class Registry(object):
     """Hold the available attention implementations and their required
     parameters."""

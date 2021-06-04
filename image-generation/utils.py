@@ -1,9 +1,3 @@
-#
-# Copyright (c) 2020 Idiap Research Institute, http://www.idiap.ch/
-# Written by Angelos Katharopoulos <angelos.katharopoulos@idiap.ch>,
-# Apoorv Vyas <avyas@idiap.ch>
-#
-
 from glob import iglob
 from os import path, rename
 import time
@@ -300,8 +294,8 @@ def add_transformer_arguments(parser):
     parser.add_argument(
         "--adaptive_type",
         type=str,
-        choices=["wang", "fr", "pr", "hs", "dy"],
-        default="wang",
+        choices=["nc", "fr", "pr", "hs", "dy"],
+        default="nc",
         help="Adaptive momentum type to be used for momentum residual connections"
     )
     parser.add_argument(

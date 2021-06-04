@@ -1,8 +1,3 @@
-#
-# Copyright (c) 2020 Idiap Research Institute, http://www.idiap.ch/
-# Written by Angelos Katharopoulos <angelos.katharopoulos@idiap.ch>
-#
-
 """Autoregressive implementations for cross attention as a recurrent module.
 
 The attention implementations in this module expect one input for query and a

@@ -1,8 +1,3 @@
-#
-# Copyright (c) 2020 Idiap Research Institute, http://www.idiap.ch/
-# Written by Angelos Katharopoulos <angelos.katharopoulos@idiap.ch>
-#
-
 """Implement unmasked linear attention as a recurrent cross attention module to
 speed up autoregressive decoding."""
 

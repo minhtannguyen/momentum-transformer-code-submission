@@ -1,8 +1,3 @@
-#
-# Copyright (c) 2020 Idiap Research Institute, http://www.idiap.ch/
-# Written by Angelos Katharopoulos <angelos.katharopoulos@idiap.ch>
-#
-
 """Implement the positive orthogonal random features from the paper
 "Rethinking Attention with Performers" https://arxiv.org/pdf/2009.14794.pdf
 and the traditional random Fourier features that approximate the RBF kernel.

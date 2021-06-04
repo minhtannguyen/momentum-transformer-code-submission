@@ -1,8 +1,3 @@
-#
-# Copyright (c) 2020 Idiap Research Institute, http://www.idiap.ch/
-# Written by Angelos Katharopoulos <angelos.katharopoulos@idiap.ch>
-#
-
 """Create the feature map interface and some commonly used feature maps.
 
 All attention implementations that expect a feature map shall receive a factory

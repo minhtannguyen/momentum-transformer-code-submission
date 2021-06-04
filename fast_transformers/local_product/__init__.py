@@ -1,8 +1,3 @@
-#
-# Copyright (c) 2020 Idiap Research Institute, http://www.idiap.ch/
-# Written by Angelos Katharopoulos <angelos.katharopoulos@idiap.ch>
-#
-
 import torch
 
 from .local_product_cpu import local_dot_product as local_dot_product_cpu, \

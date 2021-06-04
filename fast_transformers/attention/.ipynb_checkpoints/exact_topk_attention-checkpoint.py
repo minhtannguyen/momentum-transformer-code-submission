@@ -4,26 +4,26 @@
 # Apoorv Vyas <avyas@idiap.ch>
 #
 
-"""Implement the full attention similar to the one implemented by PyTorch's
+"""Implement the oracle top-k attention. The top-k keys are exact ones.
 MultiHeadAttention module. Note that this module is to be used in conjuction
-with the `fast_transformers.attention.attention_layer.AttentionLayer` in order
-to work."""
+with the AttentionLayer in order to work."""
 
 from math import sqrt
 
 import torch
 from torch.nn import Dropout, Module
 
-from ..attention_registry import AttentionRegistry, Optional, Float, Int, \
+from ..attention_registry import AttentionRegistry, Optional, Int, Float, \
     EventDispatcherInstance
-from ..events import EventDispatcher, AttentionEvent
+from ..events import EventDispatcher
 
 
-class SparseFullAttention(Module):
-    """Implement the scaled dot product attention with softmax.
+class ExactTopKAttention(Module):
+    """Implement the oracle top-k softmax attention.
 
     Arguments
     ---------
+        top-k: The top k keys to attend to  (default: 32)
         softmax_temp: The temperature to use for the softmax attention.
                       (default: 1/sqrt(d_keys) where d_keys is computed at
                       runtime)
@@ -33,30 +33,16 @@ class SparseFullAttention(Module):
                           module for dispatching events (default: the default
                           global dispatcher)
     """
-    def __init__(self, softmax_temp=None, attention_dropout=0.1,
-                 event_dispatcher="", diag_size=0):
-        super(SparseFullAttention, self).__init__()
+    def __init__(self, topk=32, softmax_temp=None, attention_dropout=0.1,
+                 event_dispatcher=""):
+        super(ExactTopKAttention, self).__init__()
+        self.topk = topk
         self.softmax_temp = softmax_temp
         self.dropout = Dropout(attention_dropout)
         self.event_dispatcher = EventDispatcher.get(event_dispatcher)
-        self.diag_size = diag_size
 
     def forward(self, queries, keys, values, attn_mask, query_lengths,
                 key_lengths):
-        """Implements the multihead softmax attention.
-
-        Arguments
-        ---------
-            queries: (N, L, H, E) The tensor containing the queries
-            keys: (N, S, H, E) The tensor containing the keys
-            values: (N, S, H, D) The tensor containing the values
-            attn_mask: An implementation of BaseMask that encodes where each
-                       query can attend to
-            query_lengths: An implementation of  BaseMask that encodes how
-                           many queries each sequence in the batch consists of
-            key_lengths: An implementation of BaseMask that encodes how
-                         many queries each sequence in the batch consists of
-        """
         # Extract some shapes and compute the temperature
         N, L, H, E = queries.shape
         _, S, _, D = values.shape
@@ -64,23 +50,26 @@ class SparseFullAttention(Module):
 
         # Compute the unnormalized attention and apply the masks
         QK = torch.einsum("nlhe,nshe->nhls", queries, keys)
+        topk = min(self.topk, L)
+        
         if not attn_mask.all_ones:
             QK = QK + attn_mask.additive_matrix
         QK = QK + key_lengths.additive_matrix[:, None, None]
 
-        # Compute the attention and the weighted average
-        A = torch.softmax(softmax_temp * QK, dim=-1)
-        
-        A = torch.triu(A.view(-1, L, S), diagonal=-self.diag_size)
-    
-        A = A.view(N, H, L, S)
-        
-        A = self.dropout(A)
-        
-        V = torch.einsum("nhls,nshd->nlhd", A, values)
+        topk_values, topk_idx = torch.topk(QK, topk, sorted=False, dim=-1)
+        mask = QK.new_ones(QK.shape) *  float("-inf") 
+        mask[
+            torch.arange(N, device=QK.device).view(N, 1, 1, 1),
+            torch.arange(H, device=QK.device).view(1, H, 1, 1),
+            torch.arange(L, device=QK.device).view(1, 1, L, 1),
+            topk_idx,
+        ] = 0.
 
-        # Let the world know of the attention matrix
-        self.event_dispatcher.dispatch(AttentionEvent(self, A))
+        QK = QK + mask 
+
+        # Compute the attention and the weighted average
+        A = self.dropout(torch.softmax(softmax_temp * QK, dim=-1))
+        V = torch.einsum("nhls,nshd->nlhd", A, values)
 
         # Make sure that what we return is contiguous
         return V.contiguous()
@@ -89,11 +78,11 @@ class SparseFullAttention(Module):
 # Register the attention implementation so that it becomes available in our
 # builders
 AttentionRegistry.register(
-    "sparse-full", SparseFullAttention,
+    "exact-topk", ExactTopKAttention,
     [
+        ("topk", Optional(Int, 32)),
         ("softmax_temp", Optional(Float)),
         ("attention_dropout", Optional(Float, 0.1)),
-        ("event_dispatcher", Optional(EventDispatcherInstance, "")),
-        ("diag_size", Optional(Int)),
+        ("event_dispatcher", Optional(EventDispatcherInstance, ""))
     ]
 )

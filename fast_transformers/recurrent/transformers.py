@@ -1,9 +1,3 @@
-#
-# Copyright (c) 2020 Idiap Research Institute, http://www.idiap.ch/
-# Written by Angelos Katharopoulos <angelos.katharopoulos@idiap.ch>,
-# Apoorv Vyas <avyas@idiap.ch>
-#
-
 """Implement transformer encoders and decoders as RNNs that will be used with
 different recurrent attention mechanisms.
 
@@ -47,7 +41,7 @@ class RecurrentTransformerAdaptiveEncoderLayer(Module):
                           global dispatcher)
     """
     def __init__(self, attention, d_model, d_ff=None, dropout=0.1,
-                 activation="relu", event_dispatcher="", res_stepsize=1.0, res_delta=0.0001, adaptive_type="wang", is_resw=False):
+                 activation="relu", event_dispatcher="", res_stepsize=1.0, res_delta=0.0001, adaptive_type="nc", is_resw=False):
         super(RecurrentTransformerAdaptiveEncoderLayer, self).__init__()
         d_ff = d_ff or 4*d_model
         self.attention = attention
@@ -107,7 +101,6 @@ class RecurrentTransformerAdaptiveEncoderLayer(Module):
             else:
                 res_mu = (torch.norm(gradvaly, dim=2, keepdim=True)**2)/torch.sum(v * (gradvaly - gradval), dim=1, keepdim=True)
         else:
-            #adaptive momentum developed in wang et. al. 
             #res_mu = (1.0 - torch.sqrt(torch.norm(gradvaly - gradval, dim=2, keepdim=True)/torch.norm(gradval, dim=2, keepdim=True)))**2
             if torch.all(v == torch.zeros_like(x)):
                 res_mu = (1.0 - torch.sqrt(torch.norm(gradvaly - gradval, dim=1, keepdim=True)/torch.norm(gradval, dim=1, keepdim=True)))**2
