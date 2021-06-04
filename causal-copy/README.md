@@ -34,6 +34,6 @@ python main.py --save_to "./softmax" --attention_type full --epochs 100 --manual
 python main.py --save_to "./reformer" --attention_type reformer --epochs 100 --manualSeed 0 --gpu-id 0
 python main.py --save_to "./linear" --attention_type causal-linear --epochs 100 --manualSeed 0 --gpu-id 0
 python main_causal_momentum.py --save_to "./momentum" --attention_type causal-momentum --mu 0.1 --stepsize 0.6 --epochs 100 --manualSeed 0 --gpu-id 0
-python main_causal_res_momentum.py --save_to "./momentum_momentum_connection" --attention_type causal-momentum --mu 0.1 --stepsize 0.6 --res_mu 0.99 --res_stepsize 0.6 --epochs 100 --manualSeed 0 --gpu-id 0
+python main_causal_res_momentum.py --save_to "./momentum_momentum_connection" --attention_type causal-momentum --mu 0.1 --stepsize 0.6 --res_mu 0.99 --res_stepsize 0.99 --epochs 100 --manualSeed 0 --gpu-id 0
 python main_causal_adaptive_momentum.py --save_to "./adaptivemomentum" --attention_type causal-momentum --mu 0.1 --stepsize 0.6 --res_stepsize 0.99 --res_delta 0.0001 --adaptive_type "nc" --epochs 100 --manualSeed 0 --gpu-id 0
 ```
