@@ -32,23 +32,23 @@ Running the code
 
 ### Training
 
-The training is done using `main.py`. The script comes with thorough command
-line help which is shown using the `--help` command line argument.
+MNIST: Run following commands to reproduce results in Table 1 and Figure 2 in our paper.
+```
+python main.py --dataset mnist --attention_type full --d_query 32 --n_heads 8 --n_layers 8 --mixtures 10 --batch_size 10 --iterations 1500000 --evaluate_frequency 6000 --save_to "./mnist_softmax" --manualSeed 0 --gpu-id 0
+python main.py --dataset mnist --attention_type causal-linear --d_query 32 --n_heads 8 --n_layers 8 --mixtures 10 --batch_size 10 --iterations 1500000 --evaluate_frequency 6000 --save_to "./mnist_linear" --manualSeed 0 --gpu-id 0
+python main_causal_momentum.py --dataset mnist --attention_type causal-momentum --d_query 32 --n_heads 8 --n_layers 8 --mixtures 10 --batch_size 10 --iterations 1500000 --evaluate_frequency 6000 --save_frequency 6000 --save_to "./momentum" --mu 0.6 --stepsize 0.9 --delta 0.0001 --manualSeed 0 --gpu-id 0
+python main_causal_res_momentum.py --dataset mnist --attention_type causal-momentum --d_query 32 --n_heads 8 --n_layers 8 --mixtures 10 --batch_size 10 --iterations 1500000 --evaluate_frequency 6000 --save_frequency 6000 --save_to "./momentum_momentum_connection" --mu 0.6 --stepsize 0.9 --delta 0.0001 --res_mu 0.1 --res_stepsize 0.99  --manualSeed 0 --gpu-id 0
+python main_causal_adaptive_momentum.py --dataset mnist --attention_type causal-momentum --d_query 32 --n_heads 8 --n_layers 8 --mixtures 10 --batch_size 10 --iterations 1500000 --evaluate_frequency 6000 --save_frequency 6000 --save_to "./adaptivemomentum" --mu 0.6 --stepsize 0.9 --res_stepsize 0.99 --delta 0.0001 --adaptive_type "nc" --is_resw False  --manualSeed 0 --gpu-id 0
+```
 
-The following two commands train a linear transformer for MNIST and CIFAR-10
-respectively.
-
-    python main.py --dataset mnist --attention_type causal-linear \
-        --d_query 32 --n_heads 8 --n_layers 8 --mixtures 10 \
-        --batch_size 16 --iterations 937500 --evaluate_every 10000 \
-        --save_to /path/to/weights.{}.pth \
-        --continue_from /path/to/weights.{}.pth
-
-    python main.py --dataset cifar10 --attention_type causal-linear \
-        --d_query 32 --n_heads 8 --n_layers 16 --mixtures 10 --lr 2e-4 \
-        --batch_size 10 --iterations 500000 --evaluate_every 10000 \
-        --save_to /path/to/weights.{}.pth \
-        --continue_from /path/to/weights.{}.pth
+CIFAR10: Run following commands to reproduce results in Table 2 in our paper.
+```
+python main.py --dataset cifar10 --attention_type full --d_query 32 --n_heads 8 --n_layers 16 --mixtures 10 --lr 2e-4 --batch_size 1 --iterations 5000000 --evaluate_frequency 50000 --save_frequency 50000 --save_to "./cifar_softmax" --manualSeed 0 --gpu-id 0
+python main.py --dataset cifar10 --attention_type causal-linear --d_query 32 --n_heads 8 --n_layers 16 --mixtures 10 --lr 2e-4 --batch_size 4 --iterations 1250000 --evaluate_frequency 12500 --save_frequency 12500 --save_to "./cifar_linear" --manualSeed 0 --gpu-id 0
+python main_causal_momentum.py --dataset cifar10 --attention_type causal-momentum --d_query 32 --n_heads 8 --n_layers 16 --mixtures 10 --lr 2e-4 --batch_size 4 --iterations 1250000 --evaluate_frequency 12500 --save_frequency 12500 --save_to "./cifar_momentum" --mu 0.1 --stepsize 0.9 --delta 0.0001 --manualSeed 0 --gpu-id 0
+python main_causal_res_momentum.py --dataset cifar10 --attention_type causal-momentum --d_query 32 --n_heads 8 --n_layers 16 --mixtures 10 --lr 2e-4 --batch_size 4 --iterations 1250000 --evaluate_frequency 12500 --save_frequency 12500 --save_to "./cifar_momentum_momentum_connection" --mu 0.1 --stepsize 0.9 --res_mu 0.1 --res_stepsize 0.9 --delta 0.0001 --is_resw False --manualSeed 0 --gpu-id 0
+python main_causal_adaptive_momentum.py --dataset cifar10 --attention_type causal-momentum --d_query 32 --n_heads 8 --n_layers 16 --mixtures 10 --lr 2e-4 --batch_size 4 --iterations 1250000 --evaluate_frequency 12500 --save_frequency 12500 --save_to "./cifar_adaptivemomentum" --mu 0.1 --stepsize 0.9 --res_stepsize 0.9 --delta 0.0001 --adaptive_type "nc" --is_resw False  --manualSeed 0 --gpu-id 0 
+```
 
 ### Prediction
 
